@@ -1,0 +1,15 @@
+{
+	"manifest_version": 2,
+
+	"name": "Vulcan PR Title",
+	"version": "0.1.0",
+	"description": "Automatically generate PR titles in Visual Studio Online.",
+	"content_scripts": [
+		{
+			"js": [ "content.js" ],
+			"matches": [ "https://*.visualstudio.com/*/_git/*/pullrequestcreate*" ]
+		}
+	],
+
+	"icons": { "128": "icon128.png" }
+}
