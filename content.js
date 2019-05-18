@@ -1,29 +1,36 @@
-setInterval(() => {
-	// If the "insert PR title" button doesn't exist then add it in
-	if (!document.getElementById('customPRTitleGeneratorButton')) {
-		let titleDiv = document.querySelector('.ms-TextField-fieldGroup');
-
-		if (titleDiv) {
-			let generateButton = document.createElement('button');
-			generateButton.id = 'customPRTitleGeneratorButton';
-			generateButton.title = 'Generate PR title';
-			generateButton.innerText = '🖖';
-
-			generateButton.addEventListener('click', () => {
-				let titleInput = document.getElementsByClassName('ms-TextField-field')[0];
-
-				let fromBranchName = document.getElementsByClassName('vss-PickListDropdown--title-text')[1].innerText;
-				let toBranchName = document.getElementsByClassName('vss-PickListDropdown--title-text')[2].innerText;
-
-				titleInput.value = fromBranchName + ' to ' + toBranchName;
-
-				// https://stackoverflow.com/questions/54137836/change-value-of-input-made-with-react-from-chrome-extension/54138182
-				titleInput.setAttribute('value', fromBranchName + ' to ' + toBranchName);
-				titleInput.dispatchEvent(new Event('change', { bubbles: true }));
-				titleInput.dispatchEvent(new Event('blur', { bubbles: true }));
-			});
-
-			titleDiv.appendChild(generateButton);
-		}
+// Represents information from the page https://*.visualstudio.com/*/_git/*/pullrequestcreate*
+const page = {
+	get titleInput() {
+		return $('.vc-pullRequestCreate-title-container').find('input');
+	},
+	get sourceBranchName() {
+		return $.url().param('sourceRef');
+	},
+	get targetBranchName() {
+		return $.url().param('targetRef');
 	}
-}, 1000); // check every second
+};
+
+// Updates the title of the pull request
+function updateTitle() {
+	page.titleInput.val(`${page.sourceBranchName} to ${page.targetBranchName}`);
+
+	// The follow two lines are required to change the value of an input made with reactjs.
+	// See: https://stackoverflow.com/questions/54137836/change-value-of-input-made-with-react-from-chrome-extension/54138182
+	page.titleInput[0].dispatchEvent(new Event('change', { bubbles: true }));
+	page.titleInput[0].dispatchEvent(new Event('blur', { bubbles: true }));
+}
+
+function handleMutation() {
+	const generateButtonNotVisible = !$('#generatePRTitle').length;
+	if (generateButtonNotVisible) {
+		const generateButton = $('<button>🖖</button>')
+			.attr({ id: 'generatePRTitle', title: 'Generate PR title' })
+			.click(updateTitle);
+
+		page.titleInput.after(generateButton);
+	}
+}
+
+const observer = new MutationObserver(handleMutation);
+observer.observe(document.body, { childList: true });

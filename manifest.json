@@ -7,7 +7,7 @@
 	"description": "Generate pull request titles in Visual Studio Online. Updates the PR title to \"[source branch name] to [destination branch name]\"",
 	"content_scripts": [
 		{
-			"js": [ "content.js" ],
+			"js": [ "libs/jquery-3.4.1.min.js", "libs/purl.js", "content.js" ],
 			"matches": [ "https://*.visualstudio.com/*/_git/*/pullrequestcreate*" ]
 		}
 	],
