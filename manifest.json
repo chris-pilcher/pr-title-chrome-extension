@@ -3,7 +3,7 @@
 
 	"name": "Visual Studio PR Title Generator",
 	"short_name": "VS Title Gen",
-	"version": "0.0.0.1",
+	"version": "0.0.0.2",
 	"description": "Generate pull request titles in Visual Studio Online. Updates the PR title to \"[source branch name] to [destination branch name]\"",
 	"content_scripts": [
 		{
