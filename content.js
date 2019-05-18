@@ -21,6 +21,7 @@ function updateTitle() {
 	page.titleInput[0].dispatchEvent(new Event('blur', { bubbles: true }));
 }
 
+// Called when changes are made to the DOM tree.
 function handleMutation() {
 	const generateButtonNotVisible = !$('#generatePRTitle').length;
 	if (generateButtonNotVisible) {
