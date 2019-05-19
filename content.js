@@ -1,4 +1,4 @@
-// Represents information from the page https://*.visualstudio.com/*/_git/*/pullrequestcreate*
+// Represents information from the page
 const page = {
   get titleInput() {
     return $(".vc-pullRequestCreate-title-container").find("input");
