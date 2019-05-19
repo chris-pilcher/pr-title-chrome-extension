@@ -8,6 +8,9 @@ const page = {
 	},
 	get targetBranchName() {
 		return $.url().param('targetRef');
+	},
+	get isPullRequestCreatePath() {
+		return $.url().attr().path.endsWith('pullrequestcreate');
 	}
 };
 
@@ -23,6 +26,8 @@ function updateTitle() {
 
 // Called when changes are made to the DOM tree.
 function handleMutation() {
+	if (!page.isPullRequestCreatePath) return;
+
 	const generateButtonNotVisible = !$('#generatePRTitle').length;
 	if (generateButtonNotVisible) {
 		const generateButton = $('<button>🖖</button>')
