@@ -41,4 +41,4 @@ function handleMutation() {
 }
 
 const observer = new MutationObserver(handleMutation);
-observer.observe(document.body, { childList: true });
+observer.observe(document.body, { attributes: true, childList: true, characterData: true });
