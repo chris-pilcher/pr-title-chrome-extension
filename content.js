@@ -1,7 +1,7 @@
 // Represents information from the page
 const page = {
   get titleInput() {
-    return $("input[placeholder='Enter a title'");
+    return $("input[placeholder='Enter a title']");
   },
   get sourceBranchName() {
     return $.url().param("sourceRef");
