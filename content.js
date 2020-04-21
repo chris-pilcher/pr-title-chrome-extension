@@ -1,7 +1,7 @@
 // Represents information from the page
 const page = {
   get titleInput() {
-    return $(".vc-pullRequestCreate-title-container").find("input");
+    return $("input[placeholder='Enter a title'");
   },
   get sourceBranchName() {
     return $.url().param("sourceRef");
@@ -32,11 +32,11 @@ function handleMutation() {
 
   const generateButtonNotVisible = !$("#generatePRTitle").length;
   if (generateButtonNotVisible) {
-    const generateButton = $("<button>🖖</button>")
+    const generateButton = $("<button class='bolt-button'>🖖</button>")
       .attr({ id: "generatePRTitle", title: "Generate PR title" })
       .click(updateTitle);
 
-    page.titleInput.after(generateButton);
+    page.titleInput.before(generateButton);
   }
 }
 
